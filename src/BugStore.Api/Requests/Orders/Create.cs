@@ -1,6 +1,11 @@
-namespace BugStore.Requests.Orders;
+using BugStore.Api.Models;
 
-public class Create
+namespace BugStore.Api.Requests.Orders;
+
+public class Create : Request
 {
-    
+  public Guid CustomerId { get; set; }
+  public required Customer Customer { get; set; }
+  public List<OrderLine> Lines { get; set; } = [];
+
 }
