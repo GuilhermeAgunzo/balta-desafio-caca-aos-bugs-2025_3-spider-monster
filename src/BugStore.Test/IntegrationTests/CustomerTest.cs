@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace BugStore.Test;
+namespace BugStore.Test.IntegrationTests;
 
 public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
 {
@@ -16,7 +16,7 @@ public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Create_Customer()
     {
-        var request = new BugStore.Api.Requests.Customers.Create
+        var request = new Api.Requests.Customers.Create
         {
             Name = "John Doe",
             Phone = "5511111111111",
@@ -37,7 +37,7 @@ public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Update_Customer()
     {
-        var createRequest = new BugStore.Api.Requests.Customers.Create
+        var createRequest = new Api.Requests.Customers.Create
         {
             Name = "Jane Doe",
             Phone = "5522222222222",
@@ -50,7 +50,7 @@ public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
         var createJson = await JsonDocument.ParseAsync(createResult, cancellationToken: TestContext.Current.CancellationToken);
         var createdCustomerId = createJson.RootElement.GetProperty("data").GetProperty("id").GetGuid();
 
-        var updateRequest = new BugStore.Api.Requests.Customers.Update
+        var updateRequest = new Api.Requests.Customers.Update
         {
             Name = "Jane Smith",
             Phone = "5533333333333",
@@ -70,7 +70,7 @@ public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Get_Customer_By_Id()
     {
-        var createRequest = new BugStore.Api.Requests.Customers.Create
+        var createRequest = new Api.Requests.Customers.Create
         {
             Name = "Alice Doe",
             Phone = "5544444444444",
@@ -103,7 +103,7 @@ public class CustomerTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Delete_Customer()
     {
-        var createRequest = new BugStore.Api.Requests.Customers.Create
+        var createRequest = new Api.Requests.Customers.Create
         {
             Name = "Bob Doe",
             Phone = "5555555555555",

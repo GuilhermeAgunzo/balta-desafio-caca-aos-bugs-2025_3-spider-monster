@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace BugStore.Test;
+namespace BugStore.Test.IntegrationTests;
 
 public class ProductTest : IClassFixture<CustomWebApplicationFactory>
 {
@@ -16,7 +16,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Create_Product()
     {
-        var request = new BugStore.Api.Requests.Products.Create
+        var request = new Api.Requests.Products.Create
         {
             Title = "Sample Product",
             Description = "This is a sample product.",
@@ -37,7 +37,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Update_Product()
     {
-        var createRequest = new BugStore.Api.Requests.Products.Create
+        var createRequest = new Api.Requests.Products.Create
         {
             Slug = "old-product",
             Title = "Old Product",
@@ -50,7 +50,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
         var createJson = await JsonDocument.ParseAsync(createResult, cancellationToken: TestContext.Current.CancellationToken);
         var createdProductId = createJson.RootElement.GetProperty("data").GetProperty("id").GetGuid();
 
-        var updateRequest = new BugStore.Api.Requests.Products.Update
+        var updateRequest = new Api.Requests.Products.Update
         {
             Id = createdProductId,
             Slug = "updated-product",
@@ -71,7 +71,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Get_Product_By_Id()
     {
-        var createRequest = new BugStore.Api.Requests.Products.Create
+        var createRequest = new Api.Requests.Products.Create
         {
             Title = "John's Product",
             Description = "This is John's product.",
@@ -94,7 +94,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Get_Products_List()
     {
-        var createRequest = new BugStore.Api.Requests.Products.Create
+        var createRequest = new Api.Requests.Products.Create
         {
             Title = "John's Product",
             Description = "This is John's product.",
@@ -114,7 +114,7 @@ public class ProductTest : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Should_Delete_Product()
     {
-        var createRequest = new BugStore.Api.Requests.Products.Create
+        var createRequest = new Api.Requests.Products.Create
         {
             Slug = "temp-product",
             Title = "Temp Product",
